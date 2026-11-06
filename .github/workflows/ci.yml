@@ -1,0 +1,54 @@
+name: python-check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Syntax / fatal lint (ruff)
+        # 只检查项目源码，避免把本地虚拟环境 / 依赖目录误判进结果
+        run: ruff check --select E9,F63,F7,F82 app.py tests
+
+      - name: Byte-compile
+        run: python -m compileall -q app.py tests
+
+      - name: Unit tests (no network)
+        run: python -m unittest discover -s tests -v
+
+      - name: No hardcoded credentials
+        # 排除本文件自身：这里的正则字符串本身就是匹配样本
+        run: |
+          if git grep -I -n -E '(gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY)' -- . ':(exclude).github/workflows/*'; then
+            echo "::error::检测到疑似凭证，请立即撤销并清理历史"
+            exit 1
+          fi
+          echo "OK: 未发现凭证"
+
+      - name: Server binds loopback only
+        run: |
+          if grep -nE 'app\.run\([^)]*0\.0\.0\.0' app.py; then
+            echo "::error::禁止监听 0.0.0.0，本服务只允许本机访问"
+            exit 1
+          fi
+          echo "OK: 仅监听 127.0.0.1"

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>网页正文提取器</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">◧</span>
+    <div>
+      <h1>网页正文提取器</h1>
+      <p class="sub">自动抓取网页 → 拆成可勾选的段落 → 只复制你要的部分</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <span id="status" class="status"></span>
+    <button class="btn ghost" id="btn-theme" title="切换深浅色">◐</button>
+  </div>
+</header>
+
+<section class="card input-card">
+  <div class="tabs">
+    <button class="tab active" data-mode="url">🌐 网页地址</button>
+    <button class="tab" data-mode="html">🧩 粘贴源码</button>
+  </div>
+
+  <div id="pane-url" class="pane">
+    <textarea id="urls" class="urls" placeholder="粘贴网页地址，每行一个（也支持逗号分隔）&#10;例如 https://example.com/article"></textarea>
+    <div class="opts">
+      <label><input type="checkbox" id="opt-images" checked /> 保留图片</label>
+      <label><input type="checkbox" id="opt-tables" checked /> 保留表格</label>
+      <label>最短段落字数 <input type="number" id="opt-minlen" value="0" min="0" step="10" /> 字</label>
+      <label>超时 <input type="number" id="opt-timeout" value="20" min="5" max="120" /> 秒</label>
+    </div>
+  </div>
+
+  <div id="pane-html" class="pane hidden">
+    <input id="html-url" class="line" placeholder="页面地址（可选，用于补全图片相对路径）" />
+    <textarea id="html-src" class="urls" placeholder="把网页源码（Ctrl+U 复制出来的 HTML）粘贴到这里"></textarea>
+  </div>
+
+  <div class="row actions">
+    <button class="btn primary" id="btn-run">⚡ 自动提取正文</button>
+    <button class="btn ghost" id="btn-sample">填充示例</button>
+    <div class="spacer"></div>
+    <span class="hint">提取在本地完成，网页需在你的电脑网络上可访问</span>
+  </div>
+</section>
+
+<section id="results" class="results"></section>
+
+<div id="bar" class="bar hidden">
+  <div class="bar-info">
+    <span id="bar-count">已选 0 段</span>
+    <span id="bar-chars" class="muted"></span>
+  </div>
+  <div class="bar-btns">
+    <select id="fmt">
+      <option value="text">纯文本</option>
+      <option value="md">Markdown</option>
+    </select>
+    <label class="mini"><input type="checkbox" id="opt-number" /> 加序号</label>
+    <label class="mini"><input type="checkbox" id="opt-head" checked /> 带标题与链接</label>
+    <button class="btn primary" id="btn-copy">复制选中</button>
+    <button class="btn ghost" id="btn-download">下载 .md</button>
+    <button class="btn ghost" id="btn-clear">清空</button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

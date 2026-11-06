@@ -1,0 +1,6 @@
+# 运行时依赖。带上界是为了保证可复现，避免大版本升级导致行为变化。
+Flask>=3.0,<4
+requests>=2.31,<3
+beautifulsoup4>=4.12,<5
+lxml>=5.0,<6
+readability-lxml>=0.8,<1
