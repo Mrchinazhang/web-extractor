@@ -1,6 +1,11 @@
 # web-extractor · 本地网页正文提取器
 
+[![python-check](https://github.com/Mrchinazhang/web-extractor/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrchinazhang/web-extractor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 一个跑在本机的 Flask 小工具：抓取网页 → 提取正文并切成块 → 前端勾选后一键复制 / 下载为 Markdown 或纯文本。最初是为「个人信息管家 Agent」的「内容导入」功能做辅助，用来绕开浏览器跨域限制。
+
+需要 Python 3.9 及以上。CI 覆盖 3.10 / 3.11 / 3.12 / 3.13；3.9 已停止官方维护，GitHub 托管 runner 无法再为它准备环境，因此不再自动验证（代码本身仍兼容）。
 
 ## 快速开始
 
@@ -55,6 +60,8 @@ static/style.css       样式
 templates/index.html   页面
 启动.bat               Windows 一键启动（自动建 venv）
 requirements.txt       依赖
+tests/test_security.py 12 项安全回归测试（不发起真实网络请求）
+.github/workflows/ci.yml  GitHub Actions：4 个 Python 版本 × ruff / compileall / unittest / 凭证扫描
 ```
 
 ## License
