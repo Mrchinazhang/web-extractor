@@ -2,6 +2,7 @@
 
 [![python-check](https://github.com/Mrchinazhang/web-extractor/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrchinazhang/web-extractor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![支持作者](https://img.shields.io/badge/%E7%88%B1%E5%8F%91%E7%94%B5-%E8%AF%B7%E6%88%91%E5%96%9D%E6%9D%AF%E5%92%96%E5%95%A1-946ce6)](https://ifdian.net/a/Mrchinazhang)
 
 一个跑在本机的 Flask 小工具：抓取网页 → 提取正文并切成块 → 前端勾选后一键复制 / 下载为 Markdown 或纯文本。最初是为「个人信息管家 Agent」的「内容导入」功能做辅助，用来绕开浏览器跨域限制。
 
@@ -63,6 +64,12 @@ requirements.txt       依赖
 tests/test_security.py 12 项安全回归测试（不发起真实网络请求）
 .github/workflows/ci.yml  GitHub Actions：4 个 Python 版本 × ruff / compileall / unittest / 凭证扫描
 ```
+
+## 支持这个项目
+
+如果这个工具帮你省了时间，欢迎在 **[爱发电](https://ifdian.net/a/Mrchinazhang)** 请我喝杯咖啡。
+
+不想花钱也完全没关系——点个 ⭐、提个 issue、把链接分享给需要的人，同样是支持。
 
 ## License
 
